@@ -6,13 +6,13 @@ require 'event_hooks/version'
 Gem::Specification.new do |gem|
   gem.name          = "event_hooks"
   gem.version       = EventHooks::VERSION
-  gem.authors       = ["pcrwebdesign"]
+  gem.authors       = ["Pablo Calderon"]
   gem.email         = ["pablo@pcr-webdesign.com"]
-  gem.description   = %q{TODO: Write a gem description}
-  gem.summary       = %q{TODO: Write a gem summary}
+  gem.description   = %q{Add hooks before or after events}
+  gem.summary       = %q{HookEvents allows you to add pre and post-conditions to events}
   gem.homepage      = ""
 
-	gem.add_development_dependency "rspec", "~>2.12"
+	gem.add_development_dependency "rspec", "~> 2.12.0"
 
   gem.files         = `git ls-files`.split($/)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }

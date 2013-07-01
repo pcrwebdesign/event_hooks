@@ -4,6 +4,8 @@ module EventHooks
 		super
 	end
 
+	# prepend the hook to the event
+	# event won't run unless hook returns a true-ish value
 	def hook_before(event, hook)
 		raise EventHooks::DoubleHook.new if instance_methods.include?("#{event}_without_before_hook".to_sym)
 
