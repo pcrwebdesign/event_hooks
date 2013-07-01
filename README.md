@@ -25,8 +25,8 @@ Within the class that you want to hook the pre-condition to simply write:
 ```
 
 where:
-	event is the name of a method that you must define prior to the hook_before
-	hook is the name of a method that will be run before the call to event. 
+* event is the name of a method that you must define prior to the hook_before.
+* hook is the name of a method that will be run before the call to event. 
 
 ```ruby
 class AnyClass
