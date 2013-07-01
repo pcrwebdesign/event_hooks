@@ -3,3 +3,10 @@ $LOAD_PATH.unshift(File.expand_path(File.join(File.dirname(__FILE__), '..', 'lib
 require 'event_hooks'
 
 require 'rspec'
+
+def load_schema
+	config = YAML::load(IO.read(File.dirname(__FILE__) + '/database.yml'))
+	ActiveRecord::Base.logger = Logger.new(File.dirname(__FILE__) + "/debug.log")
+	ActiveRecord::Base.establish_connection(config['sqlite3'])
+	load(File.dirname(__FILE__) + "/schema.rb")
+end

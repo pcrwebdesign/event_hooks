@@ -1,3 +1,5 @@
+require 'active_record'
+
 module EventHooks
 	def self.included(base) #:nodoc:
 		#base.extend EventHooks::ClassMethods
@@ -19,4 +21,30 @@ module EventHooks
 	end
 
 	Class.send(:include, EventHooks)
+
+	module ClassMethods
+		# make sure hook_after method must be injected in subclasses 
+		def inherited(klass)
+			klass.send(:extend, EventHooks::ClassMethods)
+		end
+
+		def hook_after(event, hook)
+			alias_method "#{event}_without_after_hook".to_sym, event
+
+			define_method "#{event}_with_after_hook".to_sym do |*args|
+				ActiveRecord::Base.transaction do
+					res = send("#{event}_without_after_hook".to_sym, *args)
+					unless send(hook)
+						raise ActiveRecord::Rollback, "After_hook #{hook} failed"
+						return false
+					end
+					res
+				end
+			end
+
+			alias_method event, "#{event}_with_after_hook".to_sym
+		end
+	end
+
+	ActiveRecord::Base.send(:extend, EventHooks::ClassMethods)
 end
