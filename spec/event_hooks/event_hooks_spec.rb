@@ -56,7 +56,11 @@ describe "any class" do
 			end
 		end
 
-		context "when you try to add another before hook" do
+		context "when you add the same hook to another event" do
+			it "works" 
+		end
+
+		context "when you try to add another before hook to the same event" do
 			class StateMachine
 				def another_hook
 				end
@@ -134,6 +138,22 @@ describe "any ActiveRecord::Base subclass" do
 					foo.submit
 					foo.should_not be_persisted
 				end
+			end
+		end
+
+		context "when you try to add the same hook to another event" do
+			it "works"
+		end
+
+		context "when you try to add another after hook to the same event" do
+			class Foo
+				def another_hook
+				end
+			end
+
+			it "raises a DoubleHook exception" do
+				expect { Foo.send :hook_after, :submit, :another_hook }.
+						to raise_exception(EventHooks::DoubleHook)
 			end
 		end
 	end

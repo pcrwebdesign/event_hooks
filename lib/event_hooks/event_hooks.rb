@@ -29,6 +29,8 @@ module EventHooks
 		end
 
 		def hook_after(event, hook)
+			raise EventHooks::DoubleHook.new if instance_methods.include?("#{event}_without_after_hook".to_sym)
+
 			alias_method "#{event}_without_after_hook".to_sym, event
 
 			define_method "#{event}_with_after_hook".to_sym do |*args|
