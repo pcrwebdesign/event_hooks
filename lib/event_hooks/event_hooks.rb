@@ -26,6 +26,7 @@ module EventHooks
 		# make sure hook_after method must be injected in subclasses 
 		def inherited(klass)
 			klass.send(:extend, EventHooks::ClassMethods)
+			super
 		end
 
 		def hook_after(event, hook)
