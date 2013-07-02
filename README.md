@@ -43,14 +43,14 @@ An example:
 ```ruby
 class AnyClass
 	def submit
-	  # do something
+		# do something
 	end
 	hook_before :submit, :submit_preconditions
 	hook_after :submit, :submit_postconditions
 
-  def submit_preconditions
-	  am_i_ready?
-  end
+  	def submit_preconditions
+		am_i_ready?
+  	end
 
 	def submit_postconditions
 		am_i_ready?
